@@ -1,8 +1,8 @@
 package com.indibu.indiBuserver.data.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.indibu.indiBuserver.model.StarRating;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,6 +27,7 @@ public class Reference {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User writer;
+
     private String writerNickname;
 
     @Enumerated(EnumType.ORDINAL)

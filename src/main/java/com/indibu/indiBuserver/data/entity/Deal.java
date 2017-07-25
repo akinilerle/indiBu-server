@@ -1,14 +1,18 @@
 package com.indibu.indiBuserver.data.entity;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.indibu.indiBuserver.model.Category;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -28,23 +32,25 @@ public class Deal {
     @NotNull
     private String description;
 
-    @NotNull
-    @OneToMany
-    private List<String> categories;
+    @ElementCollection
+    @CollectionTable(name = "Deal_categories", joinColumns = @JoinColumn(name = "deal_id"))
+    @Enumerated(EnumType.STRING)
+    private List<Category> categories;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
-    private int hotVoteCounter;
-    private int coldVoteCounter;
-    private String photoUrl;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User publisher;
+    private User user;
+
+    private int hotVoteCounter;
+    private int coldVoteCounter;
+    private String photoUrl;
 
     public long getId() {
         return id;
@@ -70,11 +76,11 @@ public class Deal {
         this.description = description;
     }
 
-    public List<String> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
@@ -118,12 +124,12 @@ public class Deal {
         this.photoUrl = photoUrl;
     }
 
-    public User getPublisher() {
-        return publisher;
+    public User getUser() {
+        return user;
     }
 
-    public void setPublisher(User publisher) {
-        this.publisher = publisher;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

@@ -1,11 +1,14 @@
 package com.indibu.indiBuserver.data.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import com.indibu.indiBuserver.data.entity.Coupon;
 
 @Entity
 public class User {
@@ -23,9 +25,10 @@ public class User {
     private long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+    private Date dateOfCreation;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updated;
+    private Date dateOfUpdate;
 
     @NotNull
     private String firstName;
@@ -45,9 +48,9 @@ public class User {
     private String password;
     private String photoUrl;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ElementCollection
+    @CollectionTable(name = "User_interest", joinColumns = @JoinColumn(name = "user_id"))
     private Set<String> interests;
-    private PersonalInfo personalInfo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Coupon> couponList;
@@ -55,23 +58,29 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Deal> dealList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ElementCollection
+    @CollectionTable(name = "User_reference", joinColumns = @JoinColumn(name = "user_id"))
     private List<Reference> referenceList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<BankAccount> bankAccountList;
+    @ElementCollection
+    @CollectionTable(name = "User_BankAccount", joinColumns = @JoinColumn(name = "user_id"))
+    private List<BankAccount> bankAccounts;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Long> hotVotedCouponIds;
+    @ElementCollection
+    @CollectionTable(name = "User_hotVotedCoupon", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Long> hotVotedCouponIdSet;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Long> hotVotedDealIds;
+    @ElementCollection
+    @CollectionTable(name = "User_hotVotedDeal", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Long> hotVotedDealIdSet;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Long> coldVotedCouponIds;
+    @ElementCollection
+    @CollectionTable(name = "User_coldVotedCoupon", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Long> coldVotedCouponIdSet;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Long> coldVotedDealIds;
+    @ElementCollection
+    @CollectionTable(name = "User_coldVotedDeal", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Long> coldVotedDealIdSet;
 
     public long getId() {
         return id;
@@ -81,20 +90,20 @@ public class User {
         this.id = id;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getDateOfCreation() {
+        return dateOfCreation;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setDateOfCreation(Date dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public Date getDateOfUpdate() {
+        return dateOfUpdate;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setDateOfUpdate(Date dateOfUpdate) {
+        this.dateOfUpdate = dateOfUpdate;
     }
 
     public String getFirstName() {
@@ -153,14 +162,6 @@ public class User {
         this.interests = interests;
     }
 
-    public PersonalInfo getPersonalInfo() {
-        return personalInfo;
-    }
-
-    public void setPersonalInfo(PersonalInfo personalInfo) {
-        this.personalInfo = personalInfo;
-    }
-
     public List<Deal> getDealList() {
         return dealList;
     }
@@ -169,45 +170,44 @@ public class User {
         this.dealList = dealList;
     }
 
-
-    public List<BankAccount> getBankAccountList() {
-        return bankAccountList;
+    public List<BankAccount> getBankAccounts() {
+        return bankAccounts;
     }
 
-    public void setBankAccountList(List<BankAccount> bankAccountList) {
-        this.bankAccountList = bankAccountList;
+    public void setBankAccounts(List<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
     }
 
-    public Set<Long> getHotVotedCouponIds() {
-        return hotVotedCouponIds;
+    public Set<Long> getHotVotedCouponIdSet() {
+        return hotVotedCouponIdSet;
     }
 
-    public void setHotVotedCouponIds(Set<Long> hotVotedCouponIds) {
-        this.hotVotedCouponIds = hotVotedCouponIds;
+    public void setHotVotedCouponIdSet(Set<Long> hotVotedCouponIdSet) {
+        this.hotVotedCouponIdSet = hotVotedCouponIdSet;
     }
 
-    public Set<Long> getHotVotedDealIds() {
-        return hotVotedDealIds;
+    public Set<Long> getHotVotedDealIdSet() {
+        return hotVotedDealIdSet;
     }
 
-    public void setHotVotedDealIds(Set<Long> hotVotedDealIds) {
-        this.hotVotedDealIds = hotVotedDealIds;
+    public void setHotVotedDealIdSet(Set<Long> hotVotedDealIdSet) {
+        this.hotVotedDealIdSet = hotVotedDealIdSet;
     }
 
-    public Set<Long> getColdVotedCouponIds() {
-        return coldVotedCouponIds;
+    public Set<Long> getColdVotedCouponIdSet() {
+        return coldVotedCouponIdSet;
     }
 
-    public void setColdVotedCouponIds(Set<Long> coldVotedCouponIds) {
-        this.coldVotedCouponIds = coldVotedCouponIds;
+    public void setColdVotedCouponIdSet(Set<Long> coldVotedCouponIdSet) {
+        this.coldVotedCouponIdSet = coldVotedCouponIdSet;
     }
 
-    public Set<Long> getColdVotedDealIds() {
-        return coldVotedDealIds;
+    public Set<Long> getColdVotedDealIdSet() {
+        return coldVotedDealIdSet;
     }
 
-    public void setColdVotedDealIds(Set<Long> coldVotedDealIds) {
-        this.coldVotedDealIds = coldVotedDealIds;
+    public void setColdVotedDealIdSet(Set<Long> coldVotedDealIdSet) {
+        this.coldVotedDealIdSet = coldVotedDealIdSet;
     }
 
     public List<Coupon> getCouponList() {
@@ -225,4 +225,6 @@ public class User {
     public void setReferenceList(List<Reference> referenceList) {
         this.referenceList = referenceList;
     }
+
+
 }

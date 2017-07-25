@@ -1,7 +1,7 @@
 package com.indibu.indiBuserver.model;
 
 
-public enum Interest {
+public enum Category {
 
     ELECTRONICS,
     FOOD,

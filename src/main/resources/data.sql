@@ -1,0 +1,1 @@
+INSERT INTO USER (FIRST_name,last_name,nick_name,email,password) values('alkin','sen','sena','alkin.sen@monitise.com','Passw0rd')
