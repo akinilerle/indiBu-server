@@ -50,7 +50,7 @@ public class User {
 
     @ElementCollection
     @CollectionTable(name = "User_interest", joinColumns = @JoinColumn(name = "user_id"))
-    private Set<String> interests;
+    private Set<String> interestSet;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Coupon> couponList;
@@ -64,7 +64,7 @@ public class User {
 
     @ElementCollection
     @CollectionTable(name = "User_BankAccount", joinColumns = @JoinColumn(name = "user_id"))
-    private List<BankAccount> bankAccounts;
+    private List<BankAccount> bankAccountList;
 
     @ElementCollection
     @CollectionTable(name = "User_hotVotedCoupon", joinColumns = @JoinColumn(name = "user_id"))
@@ -154,12 +154,12 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
-    public Set<String> getInterests() {
-        return interests;
+    public Set<String> getInterestSet() {
+        return interestSet;
     }
 
-    public void setInterests(Set<String> interests) {
-        this.interests = interests;
+    public void setInterestSet(Set<String> interestSet) {
+        this.interestSet = interestSet;
     }
 
     public List<Deal> getDealList() {
@@ -170,12 +170,12 @@ public class User {
         this.dealList = dealList;
     }
 
-    public List<BankAccount> getBankAccounts() {
-        return bankAccounts;
+    public List<BankAccount> getBankAccountList() {
+        return bankAccountList;
     }
 
-    public void setBankAccounts(List<BankAccount> bankAccounts) {
-        this.bankAccounts = bankAccounts;
+    public void setBankAccountList(List<BankAccount> bankAccountList) {
+        this.bankAccountList = bankAccountList;
     }
 
     public Set<Long> getHotVotedCouponIdSet() {
@@ -225,6 +225,4 @@ public class User {
     public void setReferenceList(List<Reference> referenceList) {
         this.referenceList = referenceList;
     }
-
-
 }

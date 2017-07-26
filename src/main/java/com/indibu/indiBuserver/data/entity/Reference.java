@@ -26,9 +26,11 @@ public class Reference {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User writer;
+    private User user;
 
     private String writerNickname;
+
+    String comment;
 
     @Enumerated(EnumType.ORDINAL)
     private StarRating rating;
@@ -36,12 +38,12 @@ public class Reference {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfCreation;
 
-    public User getWriter() {
-        return writer;
+    public User getUser() {
+        return user;
     }
 
-    public void setWriter(User writer) {
-        this.writer = writer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getWriterNickname() {
@@ -74,5 +76,13 @@ public class Reference {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
