@@ -30,7 +30,7 @@ public class Reference {
 
     private String writerNickname;
 
-    String comment;
+    private String comment;
 
     @Enumerated(EnumType.ORDINAL)
     private StarRating rating;

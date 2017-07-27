@@ -1,10 +1,14 @@
 package com.indibu.indiBuserver.data.entity;
 
+import com.indibu.indiBuserver.model.Category;
+
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +54,8 @@ public class User {
 
     @ElementCollection
     @CollectionTable(name = "User_interest", joinColumns = @JoinColumn(name = "user_id"))
-    private Set<String> interestSet;
+    @Enumerated(EnumType.STRING)
+    private Set<Category> interestSet;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Coupon> couponList;
@@ -62,8 +67,8 @@ public class User {
     @CollectionTable(name = "User_reference", joinColumns = @JoinColumn(name = "user_id"))
     private List<Reference> referenceList;
 
-    @ElementCollection
-    @CollectionTable(name = "User_BankAccount", joinColumns = @JoinColumn(name = "user_id"))
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private List<BankAccount> bankAccountList;
 
     @ElementCollection
@@ -154,11 +159,11 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
-    public Set<String> getInterestSet() {
+    public Set<Category> getInterestSet() {
         return interestSet;
     }
 
-    public void setInterestSet(Set<String> interestSet) {
+    public void setInterestSet(Set<Category> interestSet) {
         this.interestSet = interestSet;
     }
 

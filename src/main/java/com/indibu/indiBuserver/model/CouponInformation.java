@@ -1,74 +1,32 @@
-package com.indibu.indiBuserver.data.entity;
+package com.indibu.indiBuserver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.indibu.indiBuserver.data.entity.Coupon;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity
-public class Coupon {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateOfCreation;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateOfUpdate;
-
+public class CouponInformation {
     private String title;
     private String description;
     private boolean isActive;
     private boolean acceptsCashPayment;
     private boolean acceptsOnlinePayment;
+    private Date dateOfCreation;
+    private Date dateOfUpdate;
     private String city;
     private int hotVoteCounter;
     private int coldVoteCounter;
 
-    public Coupon() {
-    }
-
-    public Coupon(long userId) {
-        Date date = new Date();
-        this.isActive = true;
-        this.dateOfCreation = date;
-        this.dateOfUpdate = date;
-        this.hotVoteCounter = 0;
-        this.coldVoteCounter = 0;
-
-        User user = new User();
-        user.setId(userId);
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public CouponInformation(Coupon coupon) {
+        this.title = coupon.getTitle();
+        this.description = coupon.getDescription();
+        this.isActive = coupon.isActive();
+        this.acceptsCashPayment = coupon.isAcceptsCashPayment();
+        this.acceptsOnlinePayment = coupon.isAcceptsOnlinePayment();
+        this.dateOfCreation = coupon.getDateOfCreation();
+        this.dateOfUpdate = coupon.getDateOfUpdate();
+        this.city = coupon.getCity();
+        this.hotVoteCounter = coupon.getHotVoteCounter();
+        this.coldVoteCounter = coupon.getColdVoteCounter();
     }
 
     public String getTitle() {

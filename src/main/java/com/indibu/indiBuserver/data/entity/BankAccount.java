@@ -11,6 +11,7 @@ public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String ownerFullName;
     private String iban;
     private String bankName;

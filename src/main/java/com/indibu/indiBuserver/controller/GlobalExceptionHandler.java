@@ -16,25 +16,25 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity indibuExceptionHandler(IndibuException exception){
-        return new ResponseEntity<>(new ErrorResponse(exception.getMessage()),exception.getHttpStatus());
+    public ResponseEntity indibuExceptionHandler(IndibuException exception) {
+        return new ResponseEntity<>(new ErrorResponse(exception.getMessage()), exception.getHttpStatus());
     }
 
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity defaultExceptionHandler(Exception exception){
+    public ResponseEntity defaultExceptionHandler(Exception exception) {
         return new ResponseEntity<>(new ErrorResponse(exception.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity uniqueConstraintExceptionHandler(DataIntegrityViolationException exception){
+    public ResponseEntity uniqueConstraintExceptionHandler(DataIntegrityViolationException exception) {
 
-        if(exception.getMessage().contains("PUBLIC.USER(EMAIL)")){
+        if (exception.getMessage().contains("PUBLIC.USER(EMAIL)")) {
             return new ResponseEntity<>(new ErrorResponse("Bu emaile bağlı başka bir hesap bulunmaktadır."), HttpStatus.BAD_REQUEST);
         }
 
-        if(exception.getMessage().contains("PUBLIC.USER(NICK_NAME)")){
+        if (exception.getMessage().contains("PUBLIC.USER(NICK_NAME)")) {
             return new ResponseEntity<>(new ErrorResponse("Bu nickname kullanılmaktadır."), HttpStatus.BAD_REQUEST);
         }
 
@@ -43,13 +43,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity notNullConstraintExceptionHandler(ConstraintViolationException exception){
+    public ResponseEntity notNullConstraintExceptionHandler(ConstraintViolationException exception) {
 
-        if(exception.getMessage().contains("javax.validation.constraints.NotNull")){
+        if (exception.getMessage().contains("javax.validation.constraints.NotNull")) {
             return new ResponseEntity<>(new ErrorResponse("Zorunlu alanlar boş bırakılmamalıdır."), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity(new ErrorResponse(exception.getMessage()),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(new ErrorResponse(exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }

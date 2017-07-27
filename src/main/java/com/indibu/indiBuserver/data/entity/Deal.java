@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Deal {
@@ -35,13 +35,13 @@ public class Deal {
     @ElementCollection
     @CollectionTable(name = "Deal_categories", joinColumns = @JoinColumn(name = "deal_id"))
     @Enumerated(EnumType.STRING)
-    private List<Category> categories;
+    private Set<Category> categories;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+    private Date dateOfCreation;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updated;
+    private Date dateOfUpdate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -51,6 +51,18 @@ public class Deal {
     private int hotVoteCounter;
     private int coldVoteCounter;
     private String photoUrl;
+
+    public Deal(long userId) {
+        Date date = new Date();
+        this.dateOfCreation = date;
+        this.dateOfUpdate = date;
+        this.hotVoteCounter = 0;
+        this.coldVoteCounter = 0;
+
+        User user = new User();
+        user.setId(userId);
+        this.user = user;
+    }
 
     public long getId() {
         return id;
@@ -76,28 +88,28 @@ public class Deal {
         this.description = description;
     }
 
-    public List<Category> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getDateOfCreation() {
+        return dateOfCreation;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setDateOfCreation(Date dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public Date getDateOfUpdate() {
+        return dateOfUpdate;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setDateOfUpdate(Date dateOfUpdate) {
+        this.dateOfUpdate = dateOfUpdate;
     }
 
     public int getHotVoteCounter() {
