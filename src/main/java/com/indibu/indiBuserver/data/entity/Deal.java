@@ -52,6 +52,9 @@ public class Deal {
     private int coldVoteCounter;
     private String photoUrl;
 
+    public Deal() {
+    }
+
     public Deal(long userId) {
         Date date = new Date();
         this.dateOfCreation = date;

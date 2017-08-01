@@ -42,7 +42,7 @@ public class User {
 
     @Column(unique = true)
     @NotNull
-    private String nickName;
+    private String nickname;
 
     @Column(unique = true)
     @NotNull
@@ -50,7 +50,16 @@ public class User {
 
     @NotNull
     private String password;
+
     private String photoUrl;
+
+    private double averageRating;
+
+    private int reviewNumberCounter;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    List<Message> newMessageList;
 
     @ElementCollection
     @CollectionTable(name = "User_interest", joinColumns = @JoinColumn(name = "user_id"))
@@ -86,6 +95,12 @@ public class User {
     @ElementCollection
     @CollectionTable(name = "User_coldVotedDeal", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Long> coldVotedDealIdSet;
+
+    public void addReference(Reference reference) {
+        referenceList.add(reference);
+        averageRating = ((averageRating * reviewNumberCounter) + reference.getRating().ordinal()) / (reviewNumberCounter + 1);
+        reviewNumberCounter++;
+    }
 
     public long getId() {
         return id;
@@ -127,12 +142,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
@@ -191,6 +206,14 @@ public class User {
         this.hotVotedCouponIdSet = hotVotedCouponIdSet;
     }
 
+    public List<Message> getNewMessageList() {
+        return newMessageList;
+    }
+
+    public void setNewMessageList(List<Message> newMessageList) {
+        this.newMessageList = newMessageList;
+    }
+
     public Set<Long> getHotVotedDealIdSet() {
         return hotVotedDealIdSet;
     }
@@ -205,6 +228,22 @@ public class User {
 
     public void setColdVotedCouponIdSet(Set<Long> coldVotedCouponIdSet) {
         this.coldVotedCouponIdSet = coldVotedCouponIdSet;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public int getReviewNumberCounter() {
+        return reviewNumberCounter;
+    }
+
+    public void setReviewNumberCounter(int reviewNumberCounter) {
+        this.reviewNumberCounter = reviewNumberCounter;
     }
 
     public Set<Long> getColdVotedDealIdSet() {
@@ -230,4 +269,6 @@ public class User {
     public void setReferenceList(List<Reference> referenceList) {
         this.referenceList = referenceList;
     }
+
+
 }

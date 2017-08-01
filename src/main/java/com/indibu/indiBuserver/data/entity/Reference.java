@@ -28,6 +28,8 @@ public class Reference {
     @JsonIgnore
     private User user;
 
+    private String writerPhotoUrl;
+
     private String writerNickname;
 
     private String comment;
@@ -37,6 +39,9 @@ public class Reference {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfCreation;
+
+    public Reference() {
+    }
 
     public User getUser() {
         return user;
@@ -84,5 +89,13 @@ public class Reference {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getWriterPhotoUrl() {
+        return writerPhotoUrl;
+    }
+
+    public void setWriterPhotoUrl(String writerPhotoUrl) {
+        this.writerPhotoUrl = writerPhotoUrl;
     }
 }

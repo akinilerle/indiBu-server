@@ -1,34 +1,54 @@
 package com.indibu.indiBuserver.model;
 
+
 import com.indibu.indiBuserver.data.entity.Deal;
-import com.indibu.indiBuserver.data.entity.User;
 
 import java.util.Date;
 import java.util.Set;
 
-public class DealInformation {
+public class DealResponseModel {
+
+    private long id;
+
     private String title;
+
     private String description;
+
     private Set<Category> categories;
-    private Date dateOfCreation;
-    private Date dateOfUpdate;
-    private User user;
+
+    private Date created;
+
+    private Date updated;
+
     private int hotVoteCounter;
+
     private int coldVoteCounter;
+
     private String photoUrl;
 
-    public DealInformation(Deal deal) {
-        this.title = deal.getTitle();
-        this.description = deal.getDescription();
-        this.categories = deal.getCategories();
-        this.dateOfCreation = deal.getDateOfCreation();
-        this.dateOfUpdate = deal.getDateOfUpdate();
-        this.hotVoteCounter = deal.getHotVoteCounter();
-        this.coldVoteCounter = deal.getColdVoteCounter();
-        this.photoUrl = deal.getPhotoUrl();
+    public DealResponseModel() {
     }
 
-    public DealInformation() {
+    public DealResponseModel(Deal deal) {
+
+        id = deal.getId();
+        title = deal.getTitle();
+        description = deal.getDescription();
+        categories = deal.getCategories();
+        created = deal.getDateOfCreation();
+        updated = deal.getDateOfUpdate();
+        hotVoteCounter = deal.getHotVoteCounter();
+        coldVoteCounter = deal.getColdVoteCounter();
+        photoUrl = deal.getPhotoUrl();
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -55,28 +75,20 @@ public class DealInformation {
         this.categories = categories;
     }
 
-    public Date getDateOfCreation() {
-        return dateOfCreation;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setDateOfCreation(Date dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getDateOfUpdate() {
-        return dateOfUpdate;
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setDateOfUpdate(Date dateOfUpdate) {
-        this.dateOfUpdate = dateOfUpdate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
     public int getHotVoteCounter() {

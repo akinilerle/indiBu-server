@@ -1,6 +1,5 @@
 package com.indibu.indiBuserver.controller;
 
-import com.indibu.indiBuserver.core.Constants;
 import com.indibu.indiBuserver.core.SessionUtil;
 import com.indibu.indiBuserver.model.BaseResponse;
 import com.indibu.indiBuserver.model.CouponCreateRequest;
@@ -44,20 +43,20 @@ public class CouponController {
     }
 
     @RequestMapping(value = "/terminate")
-    public BaseResponse terminateCoupon(@RequestParam(Constants.COUPON_ID) long couponId) {
+    public BaseResponse terminateCoupon(@RequestParam long couponId) {
         long userId = sessionUtil.getUserId(httpServletRequest);
         return couponService.terminateCoupon(couponId, userId);
     }
 
     @RequestMapping(value = "/details")
-    public CouponInformation getDetails(@RequestParam(Constants.COUPON_ID) long couponId) {
+    public CouponInformation getDetails(@RequestParam long couponId) {
         return couponService.getDetails(couponId);
     }
 
     @RequestMapping(value = "/feed")
     public Page<CouponInformation> getFeed(Pageable pageable) {
         long userId = sessionUtil.getUserId(httpServletRequest);
-        return couponService.getFeedPageable(pageable);
+        return couponService.getFeedPageable(pageable, userId);
     }
 
 }

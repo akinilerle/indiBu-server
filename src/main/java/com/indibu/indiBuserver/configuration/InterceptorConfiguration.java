@@ -1,5 +1,6 @@
-package com.indibu.indiBuserver.service;
+package com.indibu.indiBuserver.configuration;
 
+import com.indibu.indiBuserver.core.SessionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

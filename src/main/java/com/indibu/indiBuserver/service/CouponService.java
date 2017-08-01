@@ -14,5 +14,5 @@ public interface CouponService {
 
     BaseResponse terminateCoupon(long couponId, long userId);
 
-    Page<CouponInformation> getFeedPageable(Pageable pageable);
+    Page<CouponInformation> getFeedPageable(Pageable pageable, long userId);
 }

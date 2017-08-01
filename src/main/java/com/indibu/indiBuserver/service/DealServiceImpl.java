@@ -1,6 +1,7 @@
 package com.indibu.indiBuserver.service;
 
 
+import com.indibu.indiBuserver.core.CheckerUtill;
 import com.indibu.indiBuserver.core.MessageUtil;
 import com.indibu.indiBuserver.data.entity.Deal;
 import com.indibu.indiBuserver.data.entity.User;
@@ -34,9 +35,13 @@ public class DealServiceImpl implements DealService {
     @Autowired
     private DealRepository dealRepository;
 
+    @Autowired
+    private CheckerUtill checkerUtill;
+
     @Override
     public DealCreateResponse createDeal(DealCreateRequest dealCreateRequest, long userId) {
         Deal newDeal = new Deal(userId);
+
 
         newDeal.setDescription(dealCreateRequest.getDescription());
         newDeal.setTitle(dealCreateRequest.getTitle());
@@ -70,7 +75,7 @@ public class DealServiceImpl implements DealService {
     @Override
     public Page<DealInformation> getFeedPageable(long userId, Pageable pageable) {
         User user = userRepository.findById(userId);
-        Page<Deal> dealPage = dealRepository.readAllByCategories(user.getInterestSet(), pageable);
+        Page<Deal> dealPage = dealRepository.readAllByCategoriesIn(user.getInterestSet(), pageable);
         List<DealInformation> dealInformationList = new ArrayList<>();
         for (Deal deal : dealPage) {
             dealInformationList.add(new DealInformation(deal));

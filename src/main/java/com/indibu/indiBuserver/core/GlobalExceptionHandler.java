@@ -1,4 +1,4 @@
-package com.indibu.indiBuserver.controller;
+package com.indibu.indiBuserver.core;
 
 import com.indibu.indiBuserver.model.ErrorResponse;
 import com.indibu.indiBuserver.model.IndibuException;

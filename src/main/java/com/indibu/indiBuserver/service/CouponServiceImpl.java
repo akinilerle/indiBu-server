@@ -2,7 +2,9 @@ package com.indibu.indiBuserver.service;
 
 import com.indibu.indiBuserver.core.MessageUtil;
 import com.indibu.indiBuserver.data.entity.Coupon;
+import com.indibu.indiBuserver.data.entity.User;
 import com.indibu.indiBuserver.data.repository.CouponRepository;
+import com.indibu.indiBuserver.data.repository.UserRepository;
 import com.indibu.indiBuserver.model.BaseResponse;
 import com.indibu.indiBuserver.model.CouponCreateRequest;
 import com.indibu.indiBuserver.model.CouponCreateResponse;
@@ -28,6 +30,9 @@ public class CouponServiceImpl implements CouponService {
 
     @Autowired
     private CouponRepository couponRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -65,8 +70,9 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public Page<CouponInformation> getFeedPageable(Pageable pageable) {
-        Page<Coupon> couponPage = couponRepository.readAllBy(pageable);
+    public Page<CouponInformation> getFeedPageable(Pageable pageable, long userId) {
+        User user = userRepository.findById(userId);
+        Page<Coupon> couponPage = couponRepository.readAllByUserNotLike(user, pageable);
         List<CouponInformation> couponInformationList = new ArrayList<>();
         for (Coupon coupon : couponPage) {
             couponInformationList.add(new CouponInformation(coupon));

@@ -1,6 +1,5 @@
 package com.indibu.indiBuserver.controller;
 
-import com.indibu.indiBuserver.core.Constants;
 import com.indibu.indiBuserver.core.SessionUtil;
 import com.indibu.indiBuserver.model.BaseResponse;
 import com.indibu.indiBuserver.model.DealCreateRequest;
@@ -25,7 +24,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class DealController {
 
     @Autowired
-    HttpServletRequest httpServletRequest;
+    private HttpServletRequest httpServletRequest;
 
     @Autowired
     private DealService dealService;
@@ -45,13 +44,13 @@ public class DealController {
 
 
     @RequestMapping(value = "/terminate")
-    public BaseResponse terminateDeal(@RequestParam(Constants.COUPON_ID) long dealId) {
+    public BaseResponse terminateDeal(@RequestParam long dealId) {
         long userId = sessionUtil.getUserId(httpServletRequest);
         return dealService.terminateDeal(dealId, userId);
     }
 
     @RequestMapping(value = "/details")
-    public DealInformation getDetails(@RequestParam(Constants.COUPON_ID) long dealId) {
+    public DealInformation getDetails(@RequestParam long dealId) {
         return dealService.getDetails(dealId);
     }
 

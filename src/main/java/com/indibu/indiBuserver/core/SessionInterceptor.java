@@ -1,7 +1,6 @@
-package com.indibu.indiBuserver.service;
+package com.indibu.indiBuserver.core;
 
 
-import com.indibu.indiBuserver.model.Constants;
 import com.indibu.indiBuserver.model.IndibuException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
