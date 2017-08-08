@@ -25,15 +25,13 @@ public class AuthenticationController {
     private HttpServletRequest httpServletRequest;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestBody LoginRequestBody loginRequest) {
-
+    public void loginAttempt(@RequestBody LoginRequestBody loginRequest) {
         long userId = authenticationService.login(loginRequest);
         httpServletRequest.getSession().setAttribute(Constants.USER_ID_SESSION_ATTRIBUTE, userId);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody RegisterRequestBody registerRequestBody) {
-
         long userId = authenticationService.register(registerRequestBody);
         httpServletRequest.getSession().setAttribute(Constants.USER_ID_SESSION_ATTRIBUTE, userId);
         Logger.getLogger(this.getClass().getName()).info("Sign up succesfull. " + " User Id: " + userId);

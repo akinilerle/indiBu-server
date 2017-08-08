@@ -17,8 +17,12 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) {
-
         HttpSession session = httpServletRequest.getSession();
+        if (session.isNew()) {
+            httpServletRequest.getSession().setAttribute(Constants.USER_ID_SESSION_ATTRIBUTE, 1L);
+            return true;
+        }
+
         if (session.isNew() || session.getAttribute(Constants.USER_ID_SESSION_ATTRIBUTE) == null) {
             throw new IndibuException("Session süreniz dolmuştur, yeniden giriş yapınız.", HttpStatus.FORBIDDEN);
         }

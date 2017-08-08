@@ -1,11 +1,15 @@
 package com.indibu.indiBuserver.model;
 
-public class DealCreateResponse {
+import com.indibu.indiBuserver.data.entity.Deal;
 
+public class DealCreateResponse {
     private long dealId;
 
-    public DealCreateResponse(long dealId) {
-        this.dealId = dealId;
+    public DealCreateResponse() {
+    }
+
+    public DealCreateResponse(Deal deal) {
+        this.dealId = deal.getId();
     }
 
     public long getDealId() {

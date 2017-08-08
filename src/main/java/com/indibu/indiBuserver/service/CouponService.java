@@ -1,18 +1,16 @@
 package com.indibu.indiBuserver.service;
 
-import com.indibu.indiBuserver.model.BaseResponse;
 import com.indibu.indiBuserver.model.CouponCreateRequest;
-import com.indibu.indiBuserver.model.CouponCreateResponse;
-import com.indibu.indiBuserver.model.CouponInformation;
+import com.indibu.indiBuserver.model.CouponResponseModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CouponService {
-    CouponCreateResponse createCoupon(CouponCreateRequest couponCreateRequest, long userId);
+    void createCoupon(CouponCreateRequest couponCreateRequest, long userId);
 
-    CouponInformation getDetails(long couponId);
+    void terminateCoupon(long couponId, long userId);
 
-    BaseResponse terminateCoupon(long couponId, long userId);
+    CouponResponseModel getDetails(long couponId);
 
-    Page<CouponInformation> getFeedPageable(Pageable pageable, long userId);
+    Page<CouponResponseModel> getFeedPageable(Pageable pageable, long userId);
 }

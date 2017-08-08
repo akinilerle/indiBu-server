@@ -37,8 +37,8 @@ public class ChatResponseModel {
         id = chat.getId();
         couponId = chat.getCoupon().getId();
         couponTitle = chat.getCoupon().getTitle();
-        buyerNickname = chat.getBuyer().getNickname();
-        sellerNickname = chat.getSeller().getNickname();
+        buyerNickname = chat.getBuyer().getNickName();
+        sellerNickname = chat.getSeller().getNickName();
         buyerPhotoUrl = chat.getBuyer().getPhotoUrl();
         sellerPhotoUrl = chat.getSeller().getPhotoUrl();
         dateOfCreation = chat.getDateOfCreation();

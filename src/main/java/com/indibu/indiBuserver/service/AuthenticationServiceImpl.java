@@ -28,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (loginRequestBody.getEmail() != null && !loginRequestBody.getEmail().equals("")) {
             user = userRepository.findByEmail(loginRequestBody.getEmail());
         } else if (loginRequestBody.getNickname() != null && !loginRequestBody.getNickname().equals("")) {
-            user = userRepository.findByNickname(loginRequestBody.getNickname());
+            user = userRepository.findByNickName(loginRequestBody.getNickname());
         } else {
             throw new IndibuException("Hem mail adresi hem de kullanıcı adı boş olamaz", HttpStatus.BAD_REQUEST);
         }
@@ -54,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setPassword(registerRequestBody.getPassword());
         user.setEmail(registerRequestBody.getEmail());
-        user.setNickname(registerRequestBody.getNickname());
+        user.setNickName(registerRequestBody.getNickname());
         user.setFirstName(registerRequestBody.getFirstName());
         user.setLastName(registerRequestBody.getLastName());
         user.setAverageRating(0);

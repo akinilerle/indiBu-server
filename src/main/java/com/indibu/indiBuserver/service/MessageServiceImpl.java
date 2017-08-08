@@ -43,10 +43,10 @@ public class MessageServiceImpl implements MessageService {
         Coupon coupon = couponRepository.findById(messageRequestBody.getCouponId());
         checkerUtill.userCheck(buyer);
         checkerUtill.couponCheck(coupon);
-        User reciever = userRepository.findByNickname(messageRequestBody.getRecieverNickname());
+        User receiver = userRepository.findByNickName(messageRequestBody.getRecieverNickname());
 
         if (coupon.getUser().equals(buyer)) {
-            buyer = reciever;
+            buyer = receiver;
         }
 
         Chat chat = chatRepository.findByCouponAndBuyer(coupon, buyer);
@@ -58,10 +58,9 @@ public class MessageServiceImpl implements MessageService {
         chat.getMessageList().add(message);
         chatRepository.save(chat);
 
-        reciever.getNewMessageList().add(message);
+        receiver.getNewMessageList().add(message);
         messageRepository.save(message);
-        userRepository.save(reciever);
-
+        userRepository.save(receiver);
 
     }
 

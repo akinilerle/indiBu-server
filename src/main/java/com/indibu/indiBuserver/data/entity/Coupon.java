@@ -38,6 +38,7 @@ public class Coupon {
     private String city;
     private int hotVoteCounter;
     private int coldVoteCounter;
+    private double price;
 
     public Coupon() {
     }
@@ -53,6 +54,14 @@ public class Coupon {
         User user = new User();
         user.setId(userId);
         this.user = user;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Long getId() {

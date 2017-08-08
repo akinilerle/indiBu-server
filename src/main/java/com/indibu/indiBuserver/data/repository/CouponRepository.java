@@ -17,7 +17,7 @@ public interface CouponRepository extends CrudRepository<Coupon, Long>, PagingAn
 
     long deleteByIdAndUserId(long id, long userId);
 
-    Page<Coupon> readAllByUserNotLike(User user, Pageable pageable);
+    Page<CouponResponseModel> readAllByUserNotLike(User user, Pageable pageable);
 
 
 }

@@ -48,6 +48,7 @@ public class Deal {
     @JsonIgnore
     private User user;
 
+    private int commentCount;
     private int hotVoteCounter;
     private int coldVoteCounter;
     private String photoUrl;
@@ -61,10 +62,19 @@ public class Deal {
         this.dateOfUpdate = date;
         this.hotVoteCounter = 0;
         this.coldVoteCounter = 0;
+        this.commentCount = 0;
 
         User user = new User();
         user.setId(userId);
         this.user = user;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     public long getId() {
@@ -147,5 +157,33 @@ public class Deal {
         this.user = user;
     }
 
+    public void incrementHotVoteCounter() {
+        this.hotVoteCounter++;
+    }
 
+    public void decrementHotVoteCounter() {
+        if (this.hotVoteCounter > 1) {
+            this.hotVoteCounter--;
+        }
+    }
+
+    public void incrementColdVoteCounter() {
+        this.coldVoteCounter++;
+    }
+
+    public void decrementColdVoteCounter() {
+        if (this.coldVoteCounter > 1) {
+            this.coldVoteCounter--;
+        }
+    }
+
+    public void incrementCommentCount() {
+        this.commentCount++;
+    }
+
+    public void decrementCommentCount() {
+        if (this.commentCount > 1) {
+            this.commentCount--;
+        }
+    }
 }

@@ -18,6 +18,10 @@ public class CouponResponseModel {
     private String city;
     private int hotVoteCounter;
     private int coldVoteCounter;
+    private double price;
+
+    private String author;
+    private double referencePoint;
 
     public CouponResponseModel() {
     }
@@ -35,7 +39,34 @@ public class CouponResponseModel {
         city = coupon.getCity();
         hotVoteCounter = coupon.getHotVoteCounter();
         coldVoteCounter = coupon.getColdVoteCounter();
+        price = coupon.getPrice();
+        author = coupon.getUser().getNickName();
+        referencePoint = coupon.getUser().getAverageRating();
 
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public double getReferencePoint() {
+        return referencePoint;
+    }
+
+    public void setReferencePoint(double referencePoint) {
+        this.referencePoint = referencePoint;
     }
 
     public Long getId() {

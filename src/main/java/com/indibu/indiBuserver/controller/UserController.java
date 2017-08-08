@@ -8,6 +8,7 @@ import com.indibu.indiBuserver.model.DealResponseModel;
 import com.indibu.indiBuserver.model.ReferenceResponseModel;
 import com.indibu.indiBuserver.model.UpdateUserInfoRequestBody;
 import com.indibu.indiBuserver.model.UserInfoResponse;
+import com.indibu.indiBuserver.model.UserVoteDealRequest;
 import com.indibu.indiBuserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,10 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
+
+    @Autowired
+    private SessionUtil sessionUtil;
 
     @Autowired
     private UserService userService;
@@ -30,12 +36,9 @@ public class UserController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @Autowired
-    private SessionUtil sessionUtil;
 
-    @RequestMapping(value = "/reference", method = RequestMethod.POST)
+    @RequestMapping(value = "/reference", method = POST)
     void createReference(@RequestBody CreateReferenceRequestBody createReferenceRequestBody) {
-
         long userId = sessionUtil.getUserId(httpServletRequest);
         userService.createReference(userId, createReferenceRequestBody);
     }
@@ -48,16 +51,13 @@ public class UserController {
      */
     @RequestMapping(value = "/info", method = RequestMethod.PUT)
     void updateInfo(@RequestBody UpdateUserInfoRequestBody updateUserInfoBody) {
-
         long userId = sessionUtil.getUserId(httpServletRequest);
-
         userService.updateInfo(userId, updateUserInfoBody);
 
     }
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public UserInfoResponse getInfo(String nickname) {
-
         if (nickname == null) {
             long userId = sessionUtil.getUserId(httpServletRequest);
             return userService.getInfo(userId);
@@ -74,9 +74,7 @@ public class UserController {
             long userId = sessionUtil.getUserId(httpServletRequest);
             return userService.getReferences(userId, pageable);
         }
-
         return userService.getReferences(nickname, pageable);
-
     }
 
 
@@ -99,5 +97,10 @@ public class UserController {
         return userService.getBankAccounts(userId);
     }
 
+    @RequestMapping(value = "/vote", method = POST)
+    public void vote(@RequestBody UserVoteDealRequest userVoteDealRequest) {
+        long userId = sessionUtil.getUserId(httpServletRequest);
+        userService.vote(userId, userVoteDealRequest);
+    }
 
 }

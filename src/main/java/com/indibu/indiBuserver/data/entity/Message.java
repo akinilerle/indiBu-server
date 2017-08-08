@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 public class Message {
@@ -49,11 +48,13 @@ public class Message {
     @Override
     public boolean equals(Object other) {
         Message otherM = null;
-        if (!(other instanceof Message)) {
+        try {
+            otherM = (Message) other;
+        } catch (Exception e) {
             return false;
         }
-        otherM = (Message) other;
-        if (otherM.date.equals(date) && otherM.body.equals(body)) {
+
+        if (!otherM.date.equals(date) && otherM.body.equals(body)) {
             return true;
         }
 
@@ -61,10 +62,6 @@ public class Message {
 
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(date, body);
-    }
 
     public Coupon getCoupon() {
         return coupon;

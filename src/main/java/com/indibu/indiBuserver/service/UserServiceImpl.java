@@ -1,6 +1,7 @@
 package com.indibu.indiBuserver.service;
 
-import com.indibu.indiBuserver.core.CheckerUtill;
+import com.indibu.indiBuserver.core.NullClassChecker;
+import com.indibu.indiBuserver.data.entity.Deal;
 import com.indibu.indiBuserver.data.entity.Reference;
 import com.indibu.indiBuserver.data.entity.User;
 import com.indibu.indiBuserver.data.repository.CouponRepository;
@@ -19,6 +20,7 @@ import com.indibu.indiBuserver.model.ReferenceList;
 import com.indibu.indiBuserver.model.ReferenceResponseModel;
 import com.indibu.indiBuserver.model.UpdateUserInfoRequestBody;
 import com.indibu.indiBuserver.model.UserInfoResponse;
+import com.indibu.indiBuserver.model.UserVoteDealRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.EnumSet;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,14 +46,14 @@ public class UserServiceImpl implements UserService {
     private CouponRepository couponRepository;
 
     @Autowired
-    private CheckerUtill checkerUtill;
+    private NullClassChecker nullClassChecker;
 
     @Override
     public void createReference(long userId, CreateReferenceRequestBody requestBody) {
         User writer = userRepository.findById(userId);
-        checkerUtill.userCheck(writer);
+        nullClassChecker.userCheck(writer);
 
-        User reciever = userRepository.findByNickname(requestBody.getNickname());
+        User reciever = userRepository.findByNickName(requestBody.getNickname());
         if (reciever == null) {
             throw new IndibuException("Kullanıcı adı bulunamadı.", HttpStatus.NOT_FOUND);
         }
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
         reference.setComment(requestBody.getComment());
         reference.setDateOfCreation(new Date());
         reference.setRating(requestBody.getStarRating());
-        reference.setWriterNickname(writer.getNickname());
+        reference.setWriterNickname(writer.getNickName());
         reference.setUser(reciever);
         reference.setWriterPhotoUrl(reciever.getPhotoUrl());
 
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BankAccountList getBankAccounts(long userId) {
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
 
         return new BankAccountList(user.getBankAccountList());
     }
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserService {
     public CouponList getCoupons(long userId) {
 
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
 
         return new CouponList(user.getCouponList());
     }
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService {
     public Page<CouponResponseModel> getCoupons(long userId, Pageable pageable) {
 
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
         return couponRepository.readAllByUser(user, pageable);
 
     }
@@ -107,7 +108,7 @@ public class UserServiceImpl implements UserService {
     public DealList getDeals(long userId) {
 
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
 
         return new DealList(user.getDealList());
     }
@@ -115,7 +116,7 @@ public class UserServiceImpl implements UserService {
     public Page<DealResponseModel> getDeals(long userId, Pageable pageable) {
 
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
         return dealRepository.readAllByUser(user, pageable);
     }
 
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ReferenceList getReferences(long userId) {
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
 
         return new ReferenceList(user.getReferenceList());
     }
@@ -131,21 +132,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<ReferenceResponseModel> getReferences(long userId, Pageable pageable) {
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
         return referenceRepository.readAllByUser(user, pageable);
     }
 
     @Override
     public Page<ReferenceResponseModel> getReferences(String nickname, Pageable pageable) {
-        User user = userRepository.findByNickname(nickname);
-        checkerUtill.userCheck(user);
+        User user = userRepository.findByNickName(nickname);
+        nullClassChecker.userCheck(user);
         return referenceRepository.readAllByUser(user, pageable);
     }
 
     @Override
     public UserInfoResponse getInfo(long id) {
         User user = userRepository.findById(id);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
 
         return new UserInfoResponse(user);
     }
@@ -153,8 +154,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoResponse getInfo(String nickname) {
 
-        User user = userRepository.findByNickname(nickname);
-        checkerUtill.userCheck(user);
+        User user = userRepository.findByNickName(nickname);
+        nullClassChecker.userCheck(user);
 
         return UserInfoResponse.userInfoFactory(user);
     }
@@ -163,7 +164,7 @@ public class UserServiceImpl implements UserService {
     public void updateInfo(long userId, UpdateUserInfoRequestBody updateUserInfoBody) {
 
         User user = userRepository.findById(userId);
-        checkerUtill.userCheck(user);
+        nullClassChecker.userCheck(user);
 
         if (updateUserInfoBody.getFirstName() != null && !updateUserInfoBody.getFirstName().equals("")) {
             user.setFirstName(updateUserInfoBody.getFirstName());
@@ -184,25 +185,42 @@ public class UserServiceImpl implements UserService {
 
         }
 
-        Set<Category> interestSet = new HashSet<>();
-
-        if (updateUserInfoBody.isElectronics()) {
-            interestSet.add(Category.ELECTRONICS);
+        if (updateUserInfoBody.getInterestSet().isEmpty()) {
+            user.setInterestSet(EnumSet.allOf(Category.class));
         }
-        if (updateUserInfoBody.isClothing()) {
-            interestSet.add(Category.CLOTHING);
-        }
-        if (updateUserInfoBody.isFood()) {
-            interestSet.add(Category.FOOD);
-        }
-        if (updateUserInfoBody.isCosmetics()) {
-            interestSet.add(Category.COSMETICS);
-        }
-
-        user.setInterestSet(interestSet);
+        user.setInterestSet(updateUserInfoBody.getInterestSet());
 
         userRepository.save(user);
 
     }
 
+    @Override
+    public void vote(long userId, UserVoteDealRequest userVoteDealRequest) {
+        User user = userRepository.findById(userId);
+        Deal deal = dealRepository.findOne(userVoteDealRequest.getDealId());
+        if (userVoteDealRequest.isHot()) {
+
+            if (user.getColdVotedDealIdSet().remove(deal.getId())) {
+                deal.decrementColdVoteCounter();
+            }
+
+            if (user.getHotVotedDealIdSet().add(userVoteDealRequest.getDealId())){
+                deal.incrementHotVoteCounter();
+            }
+            userRepository.save(user);
+            dealRepository.save(deal);
+
+        } else {
+
+            if (user.getHotVotedDealIdSet().remove(deal.getId())) {
+                deal.decrementHotVoteCounter();
+            }
+
+            if (user.getColdVotedDealIdSet().add(userVoteDealRequest.getDealId())){
+                deal.incrementColdVoteCounter();
+            }
+            userRepository.save(user);
+            dealRepository.save(deal);
+        }
+    }
 }

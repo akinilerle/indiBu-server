@@ -42,7 +42,7 @@ public class User {
 
     @Column(unique = true)
     @NotNull
-    private String nickname;
+    private String nickName;
 
     @Column(unique = true)
     @NotNull
@@ -72,8 +72,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Deal> dealList;
 
-    @ElementCollection
-    @CollectionTable(name = "User_reference", joinColumns = @JoinColumn(name = "user_id"))
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private List<Reference> referenceList;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -81,19 +81,19 @@ public class User {
     private List<BankAccount> bankAccountList;
 
     @ElementCollection
-    @CollectionTable(name = "User_hotVotedCoupon", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "hotVoteCoupon", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Long> hotVotedCouponIdSet;
 
     @ElementCollection
-    @CollectionTable(name = "User_hotVotedDeal", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "hotVoteDeal", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Long> hotVotedDealIdSet;
 
     @ElementCollection
-    @CollectionTable(name = "User_coldVotedCoupon", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "coldVoteCoupon", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Long> coldVotedCouponIdSet;
 
     @ElementCollection
-    @CollectionTable(name = "User_coldVotedDeal", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "coldVoteDeal", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Long> coldVotedDealIdSet;
 
     public void addReference(Reference reference) {
@@ -142,12 +142,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getEmail() {

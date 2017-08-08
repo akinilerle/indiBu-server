@@ -11,6 +11,7 @@ import com.indibu.indiBuserver.model.ReferenceList;
 import com.indibu.indiBuserver.model.ReferenceResponseModel;
 import com.indibu.indiBuserver.model.UpdateUserInfoRequestBody;
 import com.indibu.indiBuserver.model.UserInfoResponse;
+import com.indibu.indiBuserver.model.UserVoteDealRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -40,4 +41,5 @@ public interface UserService {
 
     void updateInfo(long userId, UpdateUserInfoRequestBody updateUserInfoBody);
 
+    void vote(long userId, UserVoteDealRequest userVoteDealRequest);
 }

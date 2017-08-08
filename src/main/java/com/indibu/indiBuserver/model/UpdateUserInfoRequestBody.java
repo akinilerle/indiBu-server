@@ -1,15 +1,14 @@
 package com.indibu.indiBuserver.model;
 
+import java.util.Set;
+
 public class UpdateUserInfoRequestBody {
 
     private String firstName;
     private String lastName;
     private String oldPassword;
     private String newPassword;
-    private boolean electronics;
-    private boolean clothing;
-    private boolean food;
-    private boolean cosmetics;
+    private Set<Category> interestSet;
 
     public String getFirstName() {
         return firstName;
@@ -43,35 +42,11 @@ public class UpdateUserInfoRequestBody {
         this.newPassword = newPassword;
     }
 
-    public boolean isElectronics() {
-        return electronics;
+    public Set<Category> getInterestSet() {
+        return interestSet;
     }
 
-    public void setElectronics(boolean electronics) {
-        this.electronics = electronics;
-    }
-
-    public boolean isClothing() {
-        return clothing;
-    }
-
-    public void setClothing(boolean clothing) {
-        this.clothing = clothing;
-    }
-
-    public boolean isFood() {
-        return food;
-    }
-
-    public void setFood(boolean food) {
-        this.food = food;
-    }
-
-    public boolean isCosmetics() {
-        return cosmetics;
-    }
-
-    public void setCosmetics(boolean cosmetics) {
-        this.cosmetics = cosmetics;
+    public void setInterestSet(Set<Category> interestSet) {
+        this.interestSet = interestSet;
     }
 }

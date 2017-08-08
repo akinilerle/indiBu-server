@@ -4,30 +4,31 @@ public class CouponCreateRequest {
 
     private String title;
     private String description;
-    private boolean isActive;
     private boolean acceptsCashPayment;
     private boolean acceptsOnlinePayment;
     private String city;
+    private double price;
 
     public CouponCreateRequest(String title, String description, boolean acceptsCashPayment,
-                               boolean acceptsOnlinePayment, String city) {
+                               boolean acceptsOnlinePayment, String city, double price) {
         this.title = title;
         this.description = description;
         this.acceptsCashPayment = acceptsCashPayment;
         this.acceptsOnlinePayment = acceptsOnlinePayment;
         this.city = city;
+        this.price = price;
     }
 
     public CouponCreateRequest() {
 
     }
 
-    public boolean isActive() {
-        return isActive;
+    public double getPrice() {
+        return price;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getTitle() {
