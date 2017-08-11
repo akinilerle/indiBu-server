@@ -12,16 +12,18 @@ public class DealResponseModel {
     private String title;
     private String description;
     private Set<Category> categories;
-    private Date created;
-    private Date updated;
+    private Date dateOfCreation;
+    private Date dateOfUpdate;
     private int hotVoteCounter;
     private int coldVoteCounter;
-    private String photoUrl;
-
     private String author;
     private double referencePoint;
     private int referenceCount;
     private int commentCount;
+    private double locationX;
+    private double locationY;
+    boolean isHotVoted;
+    boolean isColdVoted;
 
     public DealResponseModel() {
     }
@@ -32,17 +34,50 @@ public class DealResponseModel {
         title = deal.getTitle();
         description = deal.getDescription();
         categories = deal.getCategories();
-        created = deal.getDateOfCreation();
-        updated = deal.getDateOfUpdate();
+        dateOfCreation = deal.getDateOfCreation();
+        dateOfUpdate = deal.getDateOfUpdate();
         hotVoteCounter = deal.getHotVoteCounter();
         coldVoteCounter = deal.getColdVoteCounter();
-        photoUrl = deal.getPhotoUrl();
         commentCount = deal.getCommentCount();
+        locationX = deal.getLocationX();
+        locationY = deal.getLocationY();
 
-        author = deal.getUser().getNickName();
+        author = deal.getUser().getNickname();
         referencePoint = deal.getUser().getAverageRating();
         referenceCount = deal.getUser().getReviewNumberCounter();
 
+    }
+
+    public boolean isHotVoted() {
+        return isHotVoted;
+    }
+
+    public void setHotVoted(boolean hotVoted) {
+        isHotVoted = hotVoted;
+    }
+
+    public boolean isColdVoted() {
+        return isColdVoted;
+    }
+
+    public void setColdVoted(boolean coldVoted) {
+        isColdVoted = coldVoted;
+    }
+
+    public double getLocationX() {
+        return locationX;
+    }
+
+    public void setLocationX(double locationX) {
+        this.locationX = locationX;
+    }
+
+    public double getLocationY() {
+        return locationY;
+    }
+
+    public void setLocationY(double locationY) {
+        this.locationY = locationY;
     }
 
     public int getReferenceCount() {
@@ -109,20 +144,20 @@ public class DealResponseModel {
         this.categories = categories;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getDateOfCreation() {
+        return dateOfCreation;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setDateOfCreation(Date dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public Date getDateOfUpdate() {
+        return dateOfUpdate;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setDateOfUpdate(Date dateOfUpdate) {
+        this.dateOfUpdate = dateOfUpdate;
     }
 
     public int getHotVoteCounter() {
@@ -141,11 +176,4 @@ public class DealResponseModel {
         this.coldVoteCounter = coldVoteCounter;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
 }

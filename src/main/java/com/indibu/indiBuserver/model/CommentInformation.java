@@ -17,7 +17,6 @@ public class CommentInformation {
     public CommentInformation(Comment comment) {
         this.dealId = comment.getDealId();
         this.body = comment.getBody();
-        this.writerPhoto = comment.getWriterPhoto();
         this.writerNickname = comment.getWriterNickname();
         this.dateOfCreation = comment.getDateOfCreation();
     }

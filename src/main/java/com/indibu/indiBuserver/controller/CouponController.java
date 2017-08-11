@@ -1,6 +1,5 @@
 package com.indibu.indiBuserver.controller;
 
-import com.indibu.indiBuserver.core.Constants;
 import com.indibu.indiBuserver.core.SessionUtil;
 import com.indibu.indiBuserver.model.CouponCreateRequest;
 import com.indibu.indiBuserver.model.CouponResponseModel;

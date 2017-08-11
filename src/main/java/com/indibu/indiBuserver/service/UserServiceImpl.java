@@ -29,6 +29,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,7 +55,7 @@ public class UserServiceImpl implements UserService {
         User writer = userRepository.findById(userId);
         nullClassChecker.userCheck(writer);
 
-        User reciever = userRepository.findByNickName(requestBody.getNickname());
+        User reciever = userRepository.findByNickname(requestBody.getNickname());
         if (reciever == null) {
             throw new IndibuException("Kullanıcı adı bulunamadı.", HttpStatus.NOT_FOUND);
         }
@@ -66,10 +68,8 @@ public class UserServiceImpl implements UserService {
         reference.setComment(requestBody.getComment());
         reference.setDateOfCreation(new Date());
         reference.setRating(requestBody.getStarRating());
-        reference.setWriterNickname(writer.getNickName());
+        reference.setWriterNickname(writer.getNickname());
         reference.setUser(reciever);
-        reference.setWriterPhotoUrl(reciever.getPhotoUrl());
-
         reciever.addReference(reference);
 
         referenceRepository.save(reference);
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<ReferenceResponseModel> getReferences(String nickname, Pageable pageable) {
-        User user = userRepository.findByNickName(nickname);
+        User user = userRepository.findByNickname(nickname);
         nullClassChecker.userCheck(user);
         return referenceRepository.readAllByUser(user, pageable);
     }
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoResponse getInfo(String nickname) {
 
-        User user = userRepository.findByNickName(nickname);
+        User user = userRepository.findByNickname(nickname);
         nullClassChecker.userCheck(user);
 
         return UserInfoResponse.userInfoFactory(user);
@@ -185,10 +185,24 @@ public class UserServiceImpl implements UserService {
 
         }
 
-        if (updateUserInfoBody.getInterestSet().isEmpty()) {
-            user.setInterestSet(EnumSet.allOf(Category.class));
+        if(updateUserInfoBody.getInterestSet()==null){
+            Set<Category> interestSet=new HashSet<>();
+            if(updateUserInfoBody.isCosmetics())
+                interestSet.add(Category.COSMETICS);
+            if(updateUserInfoBody.isElectronics())
+                interestSet.add(Category.ELECTRONICS);
+            if(updateUserInfoBody.isFood())
+                interestSet.add(Category.FOOD);
+            if(updateUserInfoBody.isClothing())
+                interestSet.add(Category.CLOTHING);
+
         }
-        user.setInterestSet(updateUserInfoBody.getInterestSet());
+        else {
+            if (updateUserInfoBody.getInterestSet().isEmpty()) {
+                user.setInterestSet(EnumSet.allOf(Category.class));
+            }
+            user.setInterestSet(updateUserInfoBody.getInterestSet());
+        }
 
         userRepository.save(user);
 
@@ -204,7 +218,7 @@ public class UserServiceImpl implements UserService {
                 deal.decrementColdVoteCounter();
             }
 
-            if (user.getHotVotedDealIdSet().add(userVoteDealRequest.getDealId())){
+            if (user.getHotVotedDealIdSet().add(userVoteDealRequest.getDealId())) {
                 deal.incrementHotVoteCounter();
             }
             userRepository.save(user);
@@ -216,7 +230,7 @@ public class UserServiceImpl implements UserService {
                 deal.decrementHotVoteCounter();
             }
 
-            if (user.getColdVotedDealIdSet().add(userVoteDealRequest.getDealId())){
+            if (user.getColdVotedDealIdSet().add(userVoteDealRequest.getDealId())) {
                 deal.incrementColdVoteCounter();
             }
             userRepository.save(user);

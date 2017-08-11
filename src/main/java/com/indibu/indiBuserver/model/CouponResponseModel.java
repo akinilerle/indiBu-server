@@ -40,7 +40,7 @@ public class CouponResponseModel {
         hotVoteCounter = coupon.getHotVoteCounter();
         coldVoteCounter = coupon.getColdVoteCounter();
         price = coupon.getPrice();
-        author = coupon.getUser().getNickName();
+        author = coupon.getUser().getNickname();
         referencePoint = coupon.getUser().getAverageRating();
 
     }

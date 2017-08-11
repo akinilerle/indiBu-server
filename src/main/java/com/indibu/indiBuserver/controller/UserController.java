@@ -103,4 +103,5 @@ public class UserController {
         userService.vote(userId, userVoteDealRequest);
     }
 
+
 }

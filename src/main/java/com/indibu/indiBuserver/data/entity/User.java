@@ -42,7 +42,7 @@ public class User {
 
     @Column(unique = true)
     @NotNull
-    private String nickName;
+    private String nickname;
 
     @Column(unique = true)
     @NotNull
@@ -50,8 +50,6 @@ public class User {
 
     @NotNull
     private String password;
-
-    private String photoUrl;
 
     private double averageRating;
 
@@ -142,12 +140,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
@@ -164,14 +162,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 
     public Set<Category> getInterestSet() {

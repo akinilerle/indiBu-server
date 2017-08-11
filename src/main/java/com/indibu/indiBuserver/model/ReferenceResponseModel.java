@@ -8,8 +8,6 @@ public class ReferenceResponseModel {
 
     private long id;
 
-    private String writerPhotoUrl;
-
     private String writerNickname;
 
     private String comment;
@@ -24,7 +22,6 @@ public class ReferenceResponseModel {
     public ReferenceResponseModel(Reference reference) {
 
         id = reference.getId();
-        writerPhotoUrl = reference.getWriterPhotoUrl();
         writerNickname = reference.getWriterNickname();
         comment = reference.getComment();
         rating = reference.getRating().ordinal();
@@ -38,14 +35,6 @@ public class ReferenceResponseModel {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getWriterPhotoUrl() {
-        return writerPhotoUrl;
-    }
-
-    public void setWriterPhotoUrl(String writerPhotoUrl) {
-        this.writerPhotoUrl = writerPhotoUrl;
     }
 
     public String getWriterNickname() {

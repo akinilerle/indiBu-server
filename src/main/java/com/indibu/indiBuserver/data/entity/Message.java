@@ -29,18 +29,20 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    private String recieverNickname;
+    private String receiverNickname;
+    private String senderNickname;
     private String body;
 
 
     public Message() {
     }
 
-    public Message(SendMessageRequestBody messageRequestBody, Coupon coupon) {
+    public Message(SendMessageRequestBody messageRequestBody, Coupon coupon, User user) {
 
         this.coupon = coupon;
         this.date = new Date();
-        this.recieverNickname = messageRequestBody.getRecieverNickname();
+        this.receiverNickname = messageRequestBody.getReceiverNickname();
+        this.senderNickname = user.getNickname();
         this.body = messageRequestBody.getBody();
 
     }
@@ -62,6 +64,13 @@ public class Message {
 
     }
 
+    public String getSenderNickname() {
+        return senderNickname;
+    }
+
+    public void setSenderNickname(String senderNickname) {
+        this.senderNickname = senderNickname;
+    }
 
     public Coupon getCoupon() {
         return coupon;
@@ -75,12 +84,12 @@ public class Message {
         return id;
     }
 
-    public String getRecieverNickname() {
-        return recieverNickname;
+    public String getReceiverNickname() {
+        return receiverNickname;
     }
 
-    public void setRecieverNickname(String recieverNickname) {
-        this.recieverNickname = recieverNickname;
+    public void setReceiverNickname(String receiverNickname) {
+        this.receiverNickname = receiverNickname;
     }
 
     public String getBody() {

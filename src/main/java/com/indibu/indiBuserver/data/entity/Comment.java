@@ -17,20 +17,11 @@ public class Comment {
     private long dealId;
     private String body;
     private String writerNickname;
-    private String writerPhoto;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfCreation;
 
     public Comment() {
-    }
-
-    public String getWriterPhoto() {
-        return writerPhoto;
-    }
-
-    public void setWriterPhoto(String writerPhoto) {
-        this.writerPhoto = writerPhoto;
     }
 
     public long getId() {

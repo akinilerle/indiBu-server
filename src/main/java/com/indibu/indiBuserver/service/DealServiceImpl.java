@@ -49,7 +49,8 @@ public class DealServiceImpl implements DealService {
         newDeal.setDescription(dealCreateRequest.getDescription());
         newDeal.setTitle(dealCreateRequest.getTitle());
         newDeal.setCategories(dealCreateRequest.getCategories());
-        newDeal.setPhotoUrl("no-photo");
+        newDeal.setLocationX(dealCreateRequest.getLocationX());
+        newDeal.setLocationY(dealCreateRequest.getLocationY());
 
         Deal deal = dealRepository.save(newDeal);
         return new DealCreateResponse(deal);
@@ -87,9 +88,7 @@ public class DealServiceImpl implements DealService {
         newComment.setDateOfCreation(new Date());
         newComment.setBody(dealCommentCreateRequest.getBody());
         newComment.setDealId(dealCommentCreateRequest.getDealId());
-        newComment.setWriterNickname(user.getNickName());
-        newComment.setWriterPhoto(user.getPhotoUrl());
-
+        newComment.setWriterNickname(user.getNickname());
         commentRepository.save(newComment);
 
         Deal deal = dealRepository.findOne(dealCommentCreateRequest.getDealId());

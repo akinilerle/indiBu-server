@@ -21,10 +21,6 @@ public class ChatResponseModel {
 
     private String sellerNickname;
 
-    private String buyerPhotoUrl;
-
-    private String sellerPhotoUrl;
-
     private Date dateOfCreation;
 
     private Date dateOfUpdate;
@@ -37,10 +33,8 @@ public class ChatResponseModel {
         id = chat.getId();
         couponId = chat.getCoupon().getId();
         couponTitle = chat.getCoupon().getTitle();
-        buyerNickname = chat.getBuyer().getNickName();
-        sellerNickname = chat.getSeller().getNickName();
-        buyerPhotoUrl = chat.getBuyer().getPhotoUrl();
-        sellerPhotoUrl = chat.getSeller().getPhotoUrl();
+        buyerNickname = chat.getBuyer().getNickname();
+        sellerNickname = chat.getSeller().getNickname();
         dateOfCreation = chat.getDateOfCreation();
         List<Message> messageList = chat.getMessageList();
         if (!messageList.isEmpty()) {
@@ -105,22 +99,6 @@ public class ChatResponseModel {
 
     public void setSellerNickname(String sellerNickname) {
         this.sellerNickname = sellerNickname;
-    }
-
-    public String getBuyerPhotoUrl() {
-        return buyerPhotoUrl;
-    }
-
-    public void setBuyerPhotoUrl(String buyerPhotoUrl) {
-        this.buyerPhotoUrl = buyerPhotoUrl;
-    }
-
-    public String getSellerPhotoUrl() {
-        return sellerPhotoUrl;
-    }
-
-    public void setSellerPhotoUrl(String sellerPhotoUrl) {
-        this.sellerPhotoUrl = sellerPhotoUrl;
     }
 
     public Date getDateOfCreation() {

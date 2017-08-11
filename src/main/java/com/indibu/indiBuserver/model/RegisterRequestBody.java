@@ -1,5 +1,7 @@
 package com.indibu.indiBuserver.model;
 
+import java.util.Set;
+
 public class RegisterRequestBody {
 
     private String firstName;
@@ -11,6 +13,15 @@ public class RegisterRequestBody {
     private boolean food;
     private boolean clothing;
     private boolean cosmetics;
+    private Set<Category> interestSet;
+
+    public Set<Category> getInterestSet() {
+        return interestSet;
+    }
+
+    public void setInterestSet(Set<Category> interestSet) {
+        this.interestSet = interestSet;
+    }
 
     public String getFirstName() {
         return firstName;

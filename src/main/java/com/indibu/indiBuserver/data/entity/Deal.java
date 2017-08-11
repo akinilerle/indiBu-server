@@ -51,7 +51,8 @@ public class Deal {
     private int commentCount;
     private int hotVoteCounter;
     private int coldVoteCounter;
-    private String photoUrl;
+    private double locationX;
+    private double locationY;
 
     public Deal() {
     }
@@ -67,6 +68,22 @@ public class Deal {
         User user = new User();
         user.setId(userId);
         this.user = user;
+    }
+
+    public double getLocationX() {
+        return locationX;
+    }
+
+    public void setLocationX(double locationX) {
+        this.locationX = locationX;
+    }
+
+    public double getLocationY() {
+        return locationY;
+    }
+
+    public void setLocationY(double locationY) {
+        this.locationY = locationY;
     }
 
     public int getCommentCount() {
@@ -139,14 +156,6 @@ public class Deal {
 
     public void setColdVoteCounter(int coldVoteCounter) {
         this.coldVoteCounter = coldVoteCounter;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 
     public User getUser() {

@@ -7,6 +7,24 @@ public class DealCreateRequest {
     private String title;
     private String description;
     private Set<Category> categories;
+    private double locationX;
+    private double locationY;
+
+    public double getLocationX() {
+        return locationX;
+    }
+
+    public void setLocationX(double locationX) {
+        this.locationX = locationX;
+    }
+
+    public double getLocationY() {
+        return locationY;
+    }
+
+    public void setLocationY(double locationY) {
+        this.locationY = locationY;
+    }
 
     public Set<Category> getCategories() {
         return categories;

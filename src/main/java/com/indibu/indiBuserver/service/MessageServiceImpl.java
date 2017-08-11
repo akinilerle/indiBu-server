@@ -39,11 +39,12 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void sendMessage(SendMessageRequestBody messageRequestBody, long userId) {
-        User buyer = userRepository.findById(userId);
+        User sender = userRepository.findById(userId);
+        User buyer = sender;
         Coupon coupon = couponRepository.findById(messageRequestBody.getCouponId());
         checkerUtill.userCheck(buyer);
         checkerUtill.couponCheck(coupon);
-        User receiver = userRepository.findByNickName(messageRequestBody.getRecieverNickname());
+        User receiver = userRepository.findByNickname(messageRequestBody.getReceiverNickname());
 
         if (coupon.getUser().equals(buyer)) {
             buyer = receiver;
@@ -54,12 +55,13 @@ public class MessageServiceImpl implements MessageService {
         if (chat == null) {
             chat = new Chat(coupon, buyer);
         }
-        Message message = new Message(messageRequestBody, coupon);
+        Message message = new Message(messageRequestBody, coupon, sender);
         chat.getMessageList().add(message);
+        messageRepository.save(message);
+
         chatRepository.save(chat);
 
         receiver.getNewMessageList().add(message);
-        messageRepository.save(message);
         userRepository.save(receiver);
 
     }

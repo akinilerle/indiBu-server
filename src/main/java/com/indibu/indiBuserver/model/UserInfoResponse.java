@@ -13,7 +13,10 @@ public class UserInfoResponse {
     private String lastName;
     private String nickname;
     private String email;
-    private String photoUrl;
+    private boolean electronics;
+    private boolean food;
+    private boolean clothing;
+    private boolean cosmetics;
     private double averageRating;
     private Set<Category> interestSet;
     private int reviewNumberCounter;
@@ -28,12 +31,15 @@ public class UserInfoResponse {
         dateOfUpdate = user.getDateOfUpdate();
         firstName = user.getFirstName();
         lastName = user.getLastName();
-        nickname = user.getNickName();
+        nickname = user.getNickname();
         email = user.getEmail();
-        photoUrl = user.getPhotoUrl();
         averageRating = user.getAverageRating();
         reviewNumberCounter = user.getReviewNumberCounter();
-        interestSet = user.getInterestSet();
+        Set<Category> interestSet = user.getInterestSet();
+        electronics = interestSet.contains(Category.ELECTRONICS);
+        food = interestSet.contains(Category.FOOD);
+        clothing = interestSet.contains(Category.CLOTHING);
+        cosmetics = interestSet.contains(Category.COSMETICS);
 
     }
 
@@ -43,8 +49,7 @@ public class UserInfoResponse {
 
         infoResponse.firstName = user.getFirstName();
         infoResponse.lastName = user.getLastName();
-        infoResponse.nickname = user.getNickName();
-        infoResponse.photoUrl = user.getPhotoUrl();
+        infoResponse.nickname = user.getNickname();
         infoResponse.averageRating = user.getAverageRating();
         infoResponse.reviewNumberCounter = user.getReviewNumberCounter();
 
@@ -99,20 +104,36 @@ public class UserInfoResponse {
         this.email = email;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
+    public boolean isElectronics() {
+        return electronics;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setElectronics(boolean electronics) {
+        this.electronics = electronics;
     }
 
-    public Set<Category> getInterestSet() {
-        return interestSet;
+    public boolean isFood() {
+        return food;
     }
 
-    public void setInterestSet(Set<Category> interestSet) {
-        this.interestSet = interestSet;
+    public void setFood(boolean food) {
+        this.food = food;
+    }
+
+    public boolean isClothing() {
+        return clothing;
+    }
+
+    public void setClothing(boolean clothing) {
+        this.clothing = clothing;
+    }
+
+    public boolean isCosmetics() {
+        return cosmetics;
+    }
+
+    public void setCosmetics(boolean cosmetics) {
+        this.cosmetics = cosmetics;
     }
 
     public double getAverageRating() {
@@ -129,5 +150,13 @@ public class UserInfoResponse {
 
     public void setReviewNumberCounter(int reviewNumberCounter) {
         this.reviewNumberCounter = reviewNumberCounter;
+    }
+
+    public Set<Category> getInterestSet() {
+        return interestSet;
+    }
+
+    public void setInterestSet(Set<Category> interestSet) {
+        this.interestSet = interestSet;
     }
 }

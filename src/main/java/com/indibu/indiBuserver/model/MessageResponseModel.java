@@ -8,7 +8,8 @@ import java.util.Date;
 public class MessageResponseModel {
 
     private Date date;
-    private String recieverNickname;
+    private String receiverNickname;
+    private String senderNickname;
     private long couponId;
     private String body;
 
@@ -17,9 +18,18 @@ public class MessageResponseModel {
 
     public MessageResponseModel(Message message) {
         this.body = message.getBody();
-        this.recieverNickname = message.getRecieverNickname();
+        this.receiverNickname = message.getReceiverNickname();
+        this.senderNickname = message.getSenderNickname();
         this.date = message.getDate();
         this.couponId = message.getCoupon().getId();
+    }
+
+    public String getSenderNickname() {
+        return senderNickname;
+    }
+
+    public void setSenderNickname(String senderNickname) {
+        this.senderNickname = senderNickname;
     }
 
     public long getCouponId() {
@@ -38,12 +48,12 @@ public class MessageResponseModel {
         this.date = date;
     }
 
-    public String getRecieverNickname() {
-        return recieverNickname;
+    public String getReceiverNickname() {
+        return receiverNickname;
     }
 
-    public void setRecieverNickname(String recieverNickname) {
-        this.recieverNickname = recieverNickname;
+    public void setReceiverNickname(String receiverNickname) {
+        this.receiverNickname = receiverNickname;
     }
 
     public String getBody() {

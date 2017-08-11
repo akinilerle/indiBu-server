@@ -4,7 +4,7 @@ package com.indibu.indiBuserver.model;
 public class SendMessageRequestBody {
 
     private long couponId;
-    private String recieverNickname;
+    private String receiverNickname;
     private String body;
 
     public long getCouponId() {
@@ -15,12 +15,12 @@ public class SendMessageRequestBody {
         this.couponId = couponId;
     }
 
-    public String getRecieverNickname() {
-        return recieverNickname;
+    public String getReceiverNickname() {
+        return receiverNickname;
     }
 
-    public void setRecieverNickname(String recieverNickname) {
-        this.recieverNickname = recieverNickname;
+    public void setReceiverNickname(String receiverNickname) {
+        this.receiverNickname = receiverNickname;
     }
 
     public String getBody() {

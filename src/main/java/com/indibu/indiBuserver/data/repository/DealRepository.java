@@ -20,4 +20,5 @@ public interface DealRepository extends CrudRepository<Deal, Long>, PagingAndSor
 
     Page<DealResponseModel> readAllByUser(User user, Pageable pageable);
 
+    Deal findById(long id);
 }

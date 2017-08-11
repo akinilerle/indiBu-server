@@ -28,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (loginRequestBody.getEmail() != null && !loginRequestBody.getEmail().equals("")) {
             user = userRepository.findByEmail(loginRequestBody.getEmail());
         } else if (loginRequestBody.getNickname() != null && !loginRequestBody.getNickname().equals("")) {
-            user = userRepository.findByNickName(loginRequestBody.getNickname());
+            user = userRepository.findByNickname(loginRequestBody.getNickname());
         } else {
             throw new IndibuException("Hem mail adresi hem de kullanıcı adı boş olamaz", HttpStatus.BAD_REQUEST);
         }
@@ -54,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setPassword(registerRequestBody.getPassword());
         user.setEmail(registerRequestBody.getEmail());
-        user.setNickName(registerRequestBody.getNickname());
+        user.setNickname(registerRequestBody.getNickname());
         user.setFirstName(registerRequestBody.getFirstName());
         user.setLastName(registerRequestBody.getLastName());
         user.setAverageRating(0);
@@ -64,19 +64,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setDateOfCreation(now);
         user.setDateOfUpdate(now);
 
-        Set<Category> interestSet = new HashSet<>();
-        if (registerRequestBody.isClothing()) {
-            interestSet.add(Category.CLOTHING);
+        Set<Category> interestSet;
+        if(registerRequestBody.getInterestSet()==null) {
+            interestSet = new HashSet<>();
+            if (registerRequestBody.isClothing()) {
+                interestSet.add(Category.CLOTHING);
+            }
+            if (registerRequestBody.isCosmetics()) {
+                interestSet.add(Category.COSMETICS);
+            }
+            if (registerRequestBody.isElectronics()) {
+                interestSet.add(Category.ELECTRONICS);
+            }
+            if (registerRequestBody.isFood()) {
+                interestSet.add(Category.FOOD);
+            }
         }
-        if (registerRequestBody.isCosmetics()) {
-            interestSet.add(Category.COSMETICS);
+
+        else{
+            interestSet=registerRequestBody.getInterestSet();
         }
-        if (registerRequestBody.isElectronics()) {
-            interestSet.add(Category.ELECTRONICS);
-        }
-        if (registerRequestBody.isFood()) {
-            interestSet.add(Category.FOOD);
-        }
+
         if (interestSet.isEmpty()) {
             interestSet.add(Category.CLOTHING);
             interestSet.add(Category.COSMETICS);

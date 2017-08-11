@@ -1,8 +1,9 @@
 package com.indibu.indiBuserver.controller;
 
 import com.indibu.indiBuserver.core.Constants;
-import com.indibu.indiBuserver.model.MessageResponseList;
 import com.indibu.indiBuserver.core.SessionUtil;
+import com.indibu.indiBuserver.model.ChatResponseList;
+import com.indibu.indiBuserver.model.MessageResponseList;
 import com.indibu.indiBuserver.model.SendMessageRequestBody;
 import com.indibu.indiBuserver.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class MessageController {
     public void sendMessage(@RequestBody SendMessageRequestBody message) {
         long userId = sessionUtil.getUserId(httpServletRequest);
         messageService.sendMessage(message, userId);
-
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -42,10 +42,15 @@ public class MessageController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public MessageResponseList getMessages(@RequestParam long couponId) {
+    public MessageResponseList getMessages(@RequestParam long chatId) {
         long userId = (long) httpServletRequest.getSession().getAttribute(Constants.USER_ID_SESSION_ATTRIBUTE);
-        return messageService.getMessages(userId, couponId);
+        return messageService.getMessages(userId, chatId);
     }
 
+    @RequestMapping(value="/chats",method = RequestMethod.GET)
+    public ChatResponseList getChats(){
+        long userId = (long) httpServletRequest.getSession().getAttribute(Constants.USER_ID_SESSION_ATTRIBUTE);
+        return messageService.getChats(userId);
+    }
 
 }
